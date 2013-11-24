@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h3>
+    Gerenciar clientes
+    <span class="pull-right">
+      <%= link_to 'Novo Cliente', new_client_path, class: "btn btn-primary" %>
+    </span>
+  </h3>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr>
+        <td><%= client.name %></td>
+        <td><%= client.cpf %></td>
+        <td class="text-right">
+        <%= link_to 'Nova Locação', new_rent_path, class: "btn btn-primary" %>
+        <%= link_to 'Gerenciar Locações', @client, class: "btn btn-default" %>
+        <%= link_to 'Editar', edit_client_path(client), class: "btn btn-default" %>
+        <%= link_to 'Remover', client, class: "btn btn-danger", method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

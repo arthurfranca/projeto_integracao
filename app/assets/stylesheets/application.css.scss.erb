@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+// vars --------------------------------------------------------------------------------------------
+// $badge_orange: #FBB03B;
+
+// bootstrap var overrides  ------------------------------------------------------------------------
+// $brand-primary: $sigvia_blue;
+
+// original bootstrap ----------------------------------------------
+@import "twitter/bootstrap";
+@import "anjlab/datepicker";
+@import "anjlab/timepicker";
+
+// mixins ------------------------------------------------------------------------------------------
+@mixin border_radius($radius) {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+// css ---------------------------------------------------------------------------------------------
+.container {
+  margin-top: 51px;
+}
+
+.page-header {
+  padding-bottom: 0;
+
+  span {
+    position: relative;
+    bottom: 7px;
+  }
+}
+
+.table {
+  tr:nth-child(even) {
+    background-color: #fafafa
+  }
+
+  td {
+    vertical-align: middle !important;
+  }
+}
+
+// #login-panel {
+//   @include border_radius(15px);
+//   margin-top: 151px;
+//   background-color: #201F1F;
+// }
+
+
+
+
