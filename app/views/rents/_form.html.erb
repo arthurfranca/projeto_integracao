@@ -1,10 +1,26 @@
-<%= simple_form_for(@rent) do |f| %>
+<%= simple_form_for @rent, defaults: form_defaults do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <% @rent.vehicles = [Vehicle.new, Vehicle.new] %>
+    <% @rent.vehicles.each do |vehicle| %>
+      <%= f.fields_for :vehicles, vehicle, defaults: form_defaults do |v| %>
+        <%# v.index %> 
+      <% end %> 
+    <% end %> 
+    <!-- ou -->
+    <%= f.fields_for :vehicles, @rent.vehicles, defaults: form_defaults do |v| %>
+      <%# v.index %> 
+    <% end %>
+
+    <%= f.input :cpf %>
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <%= f.input :phone %>
+    <%= f.input :address %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions pull-right">
+    <%= f.button :submit, "#{f.object.new_record? ? 'Criar' : 'Editar'}", class: "btn-primary" %>
   </div>
-<% end %>
+<% end %> 

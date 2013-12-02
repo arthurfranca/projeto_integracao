@@ -1,6 +1,14 @@
-<h1>Editing vehicle</h1>
+<div class="page-header">
+  <h3>
+    Editar veículo
+    <span class="pull-right">
+      <%= link_to 'Voltar', vehicles_path, class: "btn btn-default" %>
+    </span>
+  </h3>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @vehicle %> |
-<%= link_to 'Back', vehicles_path %>
+<div class="row">
+  <div class="col-lg-4">
+    <%= render 'form' %>
+  </div>
+</div>

@@ -1,10 +1,22 @@
-<%= simple_form_for(@vehicle) do |f| %>
+<%= simple_form_for @vehicle, defaults: form_defaults do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.fields_for :model, @vehicle.model, defaults: form_defaults do |mo| %>
+      <%= mo.input :manufacturer_id, collection: @manufacturers, selected: @vehicle.model.manufacturer_id, include_blank: true %>
+    <% end %>
+
+    <%= f.input :model_id, collection: [""], input_html: { disabled: true, data: { "possible-models" => @possible_models, selected: (@vehicle.new_record? ? "" : @vehicle.model_id.to_s) } } %>
+    
+    <%= f.input :year, collection: ((1.year.from_now.year - 21)..(1.year.from_now.year)).to_a.reverse %>
+    <%= f.input :plate %>
+    <%= f.input :base_value, as: :float %>
+
+    <%= render partial: "status", locals: { f: f } unless @vehicle.new_record? %>
+    <%#= render partial: "status", locals: { vehicle: @vehicle } unless @vehicle.new_record? %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions pull-right">
+    <%= f.button :submit, "#{f.object.new_record? ? 'Criar' : 'Editar'}", class: "btn-primary" %>
   </div>
 <% end %>

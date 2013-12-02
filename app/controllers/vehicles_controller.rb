@@ -3,8 +3,8 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles
   # GET /vehicles.json
-  def index
-    @vehicles = Vehicle.all
+  def index #sort_by {|x|[x.rating,x.name,-x.people.size]}
+    @vehicles = Vehicle.all.sort_by! { |v| [v.model.manufacturer.name.downcase, v.model.name.downcase] }
   end
 
   # GET /vehicles/1
@@ -15,10 +15,15 @@ class VehiclesController < ApplicationController
   # GET /vehicles/new
   def new
     @vehicle = Vehicle.new
+    @vehicle.build_model
+    @manufacturers = Manufacturer.all.sort_by(&:name)
+    @possible_models = Manufacturer.possible_models @manufacturers.to_a
   end
 
   # GET /vehicles/1/edit
   def edit
+    @manufacturers = Manufacturer.all.sort_by(&:name)
+    @possible_models = Manufacturer.possible_models @manufacturers.to_a
   end
 
   # POST /vehicles
@@ -28,7 +33,7 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.save
-        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+        format.html { redirect_to vehicles_path, notice: 'Veículo criado com sucesso.' }
         format.json { render action: 'show', status: :created, location: @vehicle }
       else
         format.html { render action: 'new' }
@@ -42,7 +47,7 @@ class VehiclesController < ApplicationController
   def update
     respond_to do |format|
       if @vehicle.update(vehicle_params)
-        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
+        format.html { redirect_to vehicles_path, notice: 'Veículo editado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +74,7 @@ class VehiclesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
-      params[:vehicle]
+      params.require(:vehicle).permit :year, :plate, :base_value, :status, :model_id,
+        manufacturer_attributes: [:id]
     end
 end

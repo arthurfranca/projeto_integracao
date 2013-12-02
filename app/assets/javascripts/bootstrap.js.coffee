@@ -1,10 +1,15 @@
 jQuery ->
+  $("#rooba").popover
+    container: ".container"
+    html: "true"
+    placement: "bottom"
+    content: "<div id='wororo'>weeeeeeeee</div>"
   $("a[rel~=popover], .has-popover").popover()
 
-  $("#sidebar .has-tooltip").tooltip 
-    container: "#map"
-    placement: "right"
-  $("a[rel~=tooltip], .has-tooltip").tooltip()
+
+  # $("a[rel~=tooltip], .has-tooltip").tooltip()
+
+
 
   # TODO: após merge, fazer daqui pra baixo na estrutura de views/notifications.js.coffee
   # hasNotification = (navbar) ->

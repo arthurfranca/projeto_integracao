@@ -51,6 +51,9 @@ gem 'simple_form'
 gem 'anjlab-bootstrap-rails', '~> 3.0', :require => 'bootstrap-rails'
 gem 'anjlab-widgets', '~> 3.0'
 
+# Turbolinks + Jquery fix
+gem 'jquery-turbolinks'
+
 group :development, :test do
   gem 'byebug', '~> 2.2'
   gem 'pry-byebug'

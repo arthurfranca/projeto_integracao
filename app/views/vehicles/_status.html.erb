@@ -1,0 +1,5 @@
+<% if @vehicle.status == "rented" %>
+  <strong>Status:</strong> <%= @vehicle.status false %>
+<% else %>
+  <%= f.input :status, collection: t(Vehicle::EDITABLE_STATUS), include_blank: false, value_method: ->(el) { t el, locale: :en } %>
+<% end%>

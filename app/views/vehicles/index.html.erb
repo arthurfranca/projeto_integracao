@@ -1,10 +1,18 @@
-<h1>Listing vehicles</h1>
+<div class="page-header">
+  <h3>
+    Gerenciar veículos
+    <span class="pull-right">
+      <%= link_to 'Novo Veículo', new_vehicle_path, class: "btn btn-primary" %>
+    </span>
+  </h3>
+</div>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th></th>
-      <th></th>
+      <th>Disponibilidade</th>
+      <th>Modelo</th>
+      <th>Placa</th>
       <th></th>
     </tr>
   </thead>
@@ -12,14 +20,14 @@
   <tbody>
     <% @vehicles.each do |vehicle| %>
       <tr>
-        <td><%= link_to 'Show', vehicle %></td>
-        <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>
-        <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><strong><%= vehicle.status(false) %></strong></td>
+        <td><%= "#{vehicle.model.manufacturer.name} #{vehicle.model.name}" %></td>
+        <td><%= vehicle.plate %></td>
+        <td class="text-right">
+          <%= link_to 'Editar', edit_vehicle_path(vehicle), class: "btn btn-default" %>
+          <%= link_to 'Remover', vehicle, class: "btn btn-danger", method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Vehicle', new_vehicle_path %>

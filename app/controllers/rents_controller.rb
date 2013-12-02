@@ -5,6 +5,7 @@ class RentsController < ApplicationController
   # GET /rents.json
   def index
     @rents = Rent.all
+    @client = Client.new
   end
 
   # GET /rents/1
@@ -15,6 +16,17 @@ class RentsController < ApplicationController
   # GET /rents/new
   def new
     @rent = Rent.new
+
+    # New location btn sends cpf param
+    cpf = params[:client][:cpf]
+    unless cpf.nil?
+      begin
+        client = Client.find_by(cpf: params[:client][:cpf])
+        @rent.client = client || Client.new     
+      rescue => e
+        render :text => "Não existe cliente com o cpf #{cpf.blank? ? 'vazio' : cpf}", :status => 403 
+      end
+    end
   end
 
   # GET /rents/1/edit

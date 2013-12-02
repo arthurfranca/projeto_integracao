@@ -1,1 +1,14 @@
 pt-BR:
+  activerecord:
+    models:
+      vehicle:
+        one: "veículo"
+        other: "veículos"
+    attributes:
+      vehicle:
+        year: ano
+
+  available: "Disponível"
+  fixing: "Manutenção"
+  rented: "Alugado"
+  no_info: "Sem Informações"

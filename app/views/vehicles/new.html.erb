@@ -1,5 +1,14 @@
-<h1>New vehicle</h1>
+<div class="page-header">
+  <h3>
+    Novo veículo
+    <span class="pull-right">
+      <%= link_to 'Voltar', vehicles_path, class: "btn btn-default" %>
+    </span>
+  </h3>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', vehicles_path %>
+<div class="row">
+  <div class="col-lg-4">
+    <%= render 'form' %>
+  </div>
+</div>

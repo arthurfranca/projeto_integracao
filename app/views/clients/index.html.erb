@@ -22,15 +22,12 @@
         <td><%= client.name %></td>
         <td><%= client.cpf %></td>
         <td class="text-right">
-        <%= link_to 'Nova Locação', new_rent_path, class: "btn btn-primary" %>
-        <%= link_to 'Gerenciar Locações', @client, class: "btn btn-default" %>
-        <%= link_to 'Editar', edit_client_path(client), class: "btn btn-default" %>
-        <%= link_to 'Remover', client, class: "btn btn-danger", method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <%= link_to 'Nova Locação', new_rent_path, class: "btn btn-primary" %>
+          <%= link_to 'Gerenciar Locações', client, class: "btn btn-default" %>
+          <%= link_to 'Editar', edit_client_path(client), class: "btn btn-default" %>
+          <%= link_to 'Remover', client, class: "btn btn-danger", method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-
