@@ -21,6 +21,14 @@ class Vehicle
     raw ? read_attribute(:status) : serialize_status(read_attribute(:status))
   end
 
+  def full_name
+    "#{plate} - #{name}"
+  end
+
+  def name
+    "#{model.manufacturer.name} #{model.name}"
+  end
+
   private
     def serialize_status status
       case status

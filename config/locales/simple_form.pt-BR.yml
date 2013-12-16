@@ -1,4 +1,12 @@
 pt-BR:
+  datepicker:
+    dformat: '%d/%m/%Y'        # display format of the date (this is the default, can be ommited)
+    pformat: 'dd/MM/yyyy'      # picking format of the date (this is the default, can be ommited)
+    weekstart: 0               # the week starts on Sunday (this is the default, can be ommited)
+  timepicker:
+    dformat: '%R'              # display format of the time (this is the default, can be ommited)
+    pformat: 'hh:mm'           # picking format of the time (this is the default, can be ommited)
+    
   simple_form:
     "yes": 'Sim'
     "no": 'Não'
@@ -30,6 +38,12 @@ pt-BR:
         model_id: "Modelo"
       model:
         manufacturer_id: "Fabricante"
+      rent:
+        start_date: "Data da Locação"
+        uses: 
+          return_date: "Data de Devolução"
+          vehicle:
+            id: "Veículo"
 
     # options:
     #   vehicle:

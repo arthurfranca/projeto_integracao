@@ -15,14 +15,21 @@ class RentsController < ApplicationController
 
   # GET /rents/new
   def new
-    @rent = Rent.new
+    # select's collection
+    @vehicles = Vehicle.where(status: "available")
 
-    # New location btn sends cpf param
-    cpf = params[:client][:cpf]
+    @rent = Rent.new
+    5.times { @rent.uses.build }
+    @rent.uses.each { |u| u.build_vehicle }
+    # New rent btn sends cpf param
+    if params[:client]
+      cpf = params[:client][:cpf]
+    else # Error from #create sendes client_id
+      cpf = Client.find(params[:client_id]).cpf
+    end
     unless cpf.nil?
       begin
-        client = Client.find_by(cpf: params[:client][:cpf])
-        @rent.client = client || Client.new     
+        @rent.client = Client.find_by(cpf: cpf)
       rescue => e
         render :text => "Não existe cliente com o cpf #{cpf.blank? ? 'vazio' : cpf}", :status => 403 
       end
@@ -37,15 +44,26 @@ class RentsController < ApplicationController
   # POST /rents.json
   def create
     @rent = Rent.new(rent_params)
-
-    respond_to do |format|
-      if @rent.save
-        format.html { redirect_to @rent, notice: 'Rent was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @rent }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @rent.errors, status: :unprocessable_entity }
+    vehicle_ids = @rent.uses.map(&:vehicle_id)
+    # todo: custom validator desconsiderando os marked_to_delete
+    if vehicle_ids.length == vehicle_ids.uniq.length # to check length is faster
+      respond_to do |format|
+        if @rent.save
+          byebug
+          format.html { redirect_to @rent, notice: 'Rent was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @rent }
+        else
+          byebug
+          format.html { render action: 'new' }
+          format.json { render json: @rent.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      # now is to make it work with render (same request)
+      flash.now[:error] = "O mesmo veículo foi selecionado mais de uma vez."
+      # select's collection
+      @vehicles = Vehicle.where(status: "available")
+      render action: "new"
     end
   end
 
@@ -81,6 +99,11 @@ class RentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rent_params
-      params[:rent]
+      params.require(:rent).permit :start_date,
+        :client_id,
+        uses_attributes: [
+          :return_date,
+          vehicle_attributes: [:id]
+        ]
     end
 end

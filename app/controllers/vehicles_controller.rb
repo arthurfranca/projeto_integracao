@@ -3,7 +3,7 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles
   # GET /vehicles.json
-  def index #sort_by {|x|[x.rating,x.name,-x.people.size]}
+  def index #sort_by {|x|[x.rating,x.name,-x.people.size]}, - is desc
     @vehicles = Vehicle.all.sort_by! { |v| [v.model.manufacturer.name.downcase, v.model.name.downcase] }
   end
 
@@ -16,13 +16,14 @@ class VehiclesController < ApplicationController
   def new
     @vehicle = Vehicle.new
     @vehicle.build_model
-    @manufacturers = Manufacturer.all.sort_by(&:name)
+    # @manufacturers = Manufacturer.all.sort_by(&:name)
+    @manufacturers = Manufacturer.order_by(name: :asc)
     @possible_models = Manufacturer.possible_models @manufacturers.to_a
   end
 
   # GET /vehicles/1/edit
   def edit
-    @manufacturers = Manufacturer.all.sort_by(&:name)
+    @manufacturers = Manufacturer.order_by(name: :asc)
     @possible_models = Manufacturer.possible_models @manufacturers.to_a
   end
 
@@ -74,7 +75,8 @@ class VehiclesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
-      params.require(:vehicle).permit :year, :plate, :base_value, :status, :model_id,
+      params.require(:vehicle).permit :year, :plate, :base_value, :status,
+        :model_id,
         manufacturer_attributes: [:id]
     end
 end

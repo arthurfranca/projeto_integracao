@@ -19,14 +19,18 @@
 
 // original bootstrap ----------------------------------------------
 @import "twitter/bootstrap";
-@import "anjlab/datepicker";
-@import "anjlab/timepicker";
+@import "bootstrap-datetimepicker";
 
 // mixins ------------------------------------------------------------------------------------------
 @mixin border_radius($radius) {
     -moz-border-radius: $radius;
     -webkit-border-radius: $radius;
     border-radius: $radius;
+}
+@mixin shadow($h_offset, $v_offset, $blur_distance, $spread_distance, $color) {
+  -moz-box-shadow: $h_offset $v_offset $blur_distance $spread_distance $color;//10px 10px 5px #000000;
+  -webkit-box-shadow: $h_offset $v_offset $blur_distance $spread_distance $color;
+  box-shadow: $h_offset $v_offset $blur_distance $spread_distance $color;
 }
 
 // css ---------------------------------------------------------------------------------------------
@@ -45,7 +49,7 @@
 
 .table {
   tr:nth-child(even) {
-    background-color: #fafafa
+    background-color: #fafafa;
   }
 
   td {
@@ -65,6 +69,35 @@
 .default {
  color: #333;
 }
+
+
+.no-input {
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+// v Rent v
+.rent_start_date .input-group {
+  width: 150px;
+}
+
+.vehicle-panel {
+  @include border_radius(6px);
+  // @include shadow(2px, 2px, 4px, 1px, #D3CFD6);
+  display: inline-block;
+  background-color: #D6DEE0;
+  padding: 10px 10px 1px 10px;
+  margin-bottom: 20px;
+  margin-right: 5px;
+  width: 219px;
+  height: 159px;
+}
+
+#vehicle-container {
+  // margin-left: 2px;
+  margin-left: 4px;
+}
+// ^ Rent ^
 
 // #login-panel {
 //   @include border_radius(15px);

@@ -2,25 +2,41 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <% @rent.vehicles = [Vehicle.new, Vehicle.new] %>
-    <% @rent.vehicles.each do |vehicle| %>
-      <%= f.fields_for :vehicles, vehicle, defaults: form_defaults do |v| %>
-        <%# v.index %> 
-      <% end %> 
-    <% end %> 
-    <!-- ou -->
-    <%= f.fields_for :vehicles, @rent.vehicles, defaults: form_defaults do |v| %>
-      <%# v.index %> 
-    <% end %>
+    <span class="no-input"><strong>Cliente:</strong> <%= @rent.client.name %></span>
+    <%= f.hidden_field :client_id, value: @rent.client.id %>
+    <%# input_html: { value: (l @rent.start_date), id: "rent-start-date-input" } %>
+    <%= f.input :start_date, as: :date_picker %>
 
-    <%= f.input :cpf %>
-    <%= f.input :name %>
-    <%= f.input :email %>
-    <%= f.input :phone %>
-    <%= f.input :address %>
+    <div id="vehicle-container">
+      <%= f.fields_for :uses, @rent.uses, defaults: form_defaults do |u, index| %>
+        <div class="vehicle-panel">
+          <%= u.fields_for :vehicle, u.object.vehicle, defaults: form_defaults do |v| %>
+            <%= v.input :id, collection: @vehicles, label_method: :full_name,
+                        label: "Veículo #{u.index + 1}" %>
+          <% end %>
+          <%= u.input :return_date, as: :date_picker %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="form-actions pull-right">
     <%= f.button :submit, "#{f.object.new_record? ? 'Criar' : 'Editar'}", class: "btn-primary" %>
   </div>
 <% end %> 
+
+<%#= simple_form_for @rent, defaults: form_defaults do |f| %>
+    <%# @rent.vehicles = [Vehicle.new, Vehicle.new] %>
+    <%# @rent.vehicles.each do |vehicle| %>
+      <%#= f.fields_for :vehicles, vehicle, defaults: form_defaults do |v| %>
+        <%# v.index %>
+        <%#= v.input :id, collection: @vehicles %>
+        <%#= v.input :id, collection: @vehicles, as: :grouped_select, group_method: "model.manufacturer.name" %>
+      <%# end %> 
+    <%# end %> 
+    <!-- ou -->
+    <%#= f.fields_for :vehicles, @rent.vehicles, defaults: form_defaults do |v| %>
+      <%# v.index %> 
+      <%#= v.input :id, collection: @vehicles, as: :grouped_select, group_method: "model.manufacturer.name" %>
+    <%# end %>
+<%# end %> 

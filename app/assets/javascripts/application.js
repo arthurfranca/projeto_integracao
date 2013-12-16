@@ -16,5 +16,4 @@
 //= require turbolinks
 //= require_tree .
 //= require twitter/bootstrap
-//= require anjlab/datepicker
-//= require anjlab/timepicker
+//= require bootstrap-datetimepicker

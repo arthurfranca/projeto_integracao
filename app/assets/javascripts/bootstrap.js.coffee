@@ -4,8 +4,17 @@ jQuery ->
     html: "true"
     placement: "bottom"
     content: "<div id='wororo'>weeeeeeeee</div>"
-  $("a[rel~=popover], .has-popover").popover()
+  # $("a[rel~=popover], .has-popover").popover()
 
+  # $('.datepicker').datetimepicker
+  #   pickTime: false
+
+  # $('.datetimepicker').datetimepicker
+  #   pickSeconds: false
+
+  # $('.timepicker').datetimepicker
+  #   pickDate: false,
+  #   pickSeconds: false
 
   # $("a[rel~=tooltip], .has-tooltip").tooltip()
 

@@ -48,8 +48,9 @@ gem "mongoid", git: 'git@github.com:mongoid/mongoid.git'
 gem 'simple_form'
 
 # UI
-gem 'anjlab-bootstrap-rails', '~> 3.0', :require => 'bootstrap-rails'
-gem 'anjlab-widgets', '~> 3.0'
+gem 'anjlab-bootstrap-rails', '~> 3.0', require: 'bootstrap-rails'
+gem 'datetimepicker-rails', require: 'datetimepicker-rails',
+  git: 'git://github.com/newstler/datetimepicker-rails.git'
 
 # Turbolinks + Jquery fix
 gem 'jquery-turbolinks'

@@ -29,8 +29,12 @@
   </div>
 
   <span class="text-center">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%# notice or alert or anything else you put on flash %>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :p, msg, class: name %>
+    <% end %>
+    <%# <p class="notice"><%= notice %><%# </p>%>
+    <%# <p class="alert"><%= alert %><%# </p>%>
   </span>
 
 </body>
