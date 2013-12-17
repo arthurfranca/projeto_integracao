@@ -10,10 +10,12 @@
     <div id="vehicle-container">
       <%= f.fields_for :uses, @rent.uses, defaults: form_defaults do |u, index| %>
         <div class="vehicle-panel">
-          <%= u.fields_for :vehicle, u.object.vehicle, defaults: form_defaults do |v| %>
-            <%= v.input :id, collection: @vehicles, label_method: :full_name,
+          <%#= u.fields_for :vehicle, u.object.vehicle, defaults: form_defaults do |v| %>
+            <%#= v.input :id, collection: @vehicles, label_method: :full_name,
                         label: "Veículo #{u.index + 1}" %>
-          <% end %>
+          <%# end %>
+          <%= u.input :vehicle_id, collection: @vehicles, label_method: :full_name,
+                      label: "Veículo #{u.index + 1}" %>
           <%= u.input :return_date, as: :date_picker %>
         </div>
       <% end %>

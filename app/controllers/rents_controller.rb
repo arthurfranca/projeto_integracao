@@ -19,12 +19,12 @@ class RentsController < ApplicationController
     @vehicles = Vehicle.where(status: "available")
 
     @rent = Rent.new
-    5.times { @rent.uses.build }
-    @rent.uses.each { |u| u.build_vehicle }
+    5.times { @rent.uses.build.build_vehicle }
+
     # New rent btn sends cpf param
     if params[:client]
       cpf = params[:client][:cpf]
-    else # Error from #create sendes client_id
+    else # Error from #create sends client_id param
       cpf = Client.find(params[:client_id]).cpf
     end
     unless cpf.nil?
@@ -49,8 +49,7 @@ class RentsController < ApplicationController
     if vehicle_ids.length == vehicle_ids.uniq.length # to check length is faster
       respond_to do |format|
         if @rent.save
-          byebug
-          format.html { redirect_to @rent, notice: 'Rent was successfully created.' }
+          format.html { redirect_to @rent, notice: 'Locação salva com sucesso.' }
           format.json { render action: 'show', status: :created, location: @rent }
         else
           byebug
@@ -63,6 +62,8 @@ class RentsController < ApplicationController
       flash.now[:error] = "O mesmo veículo foi selecionado mais de uma vez."
       # select's collection
       @vehicles = Vehicle.where(status: "available")
+      rent_length = @rent.uses.length
+      (5 - rent_length).times { @rent.uses.build.build_vehicle }
       render action: "new"
     end
   end
@@ -102,8 +103,8 @@ class RentsController < ApplicationController
       params.require(:rent).permit :start_date,
         :client_id,
         uses_attributes: [
-          :return_date,
-          vehicle_attributes: [:id]
+          :vehicle_id,
+          :return_date
         ]
     end
 end

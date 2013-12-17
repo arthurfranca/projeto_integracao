@@ -20,7 +20,7 @@
     <% @rents.each do |rent| %>
       <tr>
         <td><%= rent.client.name %></td>
-        <td><%= rent.created_at %></td>
+        <td><%= rent.created_at.strftime("%d/%m/%Y %H:%M") %></td>
         <td class="text-right">
           <%= link_to 'Editar', edit_rent_path(rent), class: "btn btn-default" %>
           <%= link_to 'Remover', rent, class: "btn btn-danger", method: :delete, data: { confirm: 'Tem certeza?' } %>
